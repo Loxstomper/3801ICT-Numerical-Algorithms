@@ -1,0 +1,9 @@
+# pre compiled headers (gcc)
+*.gch
+
+# object file
+*.o
+
+# compiled python
+*.pyc
+
