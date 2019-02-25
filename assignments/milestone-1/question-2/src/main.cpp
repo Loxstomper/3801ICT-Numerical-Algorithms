@@ -18,19 +18,36 @@ std::vector<Record> buildRecords()
     return records;
 }
 
+double firstDerivative(Record a, Record b)
+{
+    double h = abs(a.getTime() - b.getTime());
+
+    Point aPoint = a.toCartesian();
+    Point bPoint = b.toCartesian();
+
+    double xPrime = (aPoint.getX() - bPoint.getX()) / h;
+    double yPrime = (aPoint.getY() - bPoint.getY()) / h;
+
+    double velocity = sqrt(pow(xPrime, 2) + pow(yPrime, 2));
+
+    return velocity;
+}
+
+double secondDerivative(double v1, double v2, double h)
+{
+    return (v1 - v2) / h;
+}
 
 int main(int argc, char** argv)
 {
     std::vector<Record> records = buildRecords();
 
-    for (Record r: records) 
-    {
-        std::cout << r.getTime() << " " << r.getAngle() << " " << r.getRadius() << std::endl;
-    }
+    // for (Record r: records) 
+    // {
+    //     std::cout << r.getTime() << " " << r.getAngle() << " " << r.getRadius() << std::endl;
+    // }
 
-
-    std::cout << records[0] << std::endl;
-    std::cout << records[0].toCartesian() << std::endl;
+    std::cout << firstDerivative(records[0], records[1]) << std::endl;
 
     exit(0);
 }
