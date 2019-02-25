@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Point
 {
@@ -6,6 +7,7 @@ class Point
         Point(double x, double y);
         double getX();
         double getY();
+        friend std::ostream &operator<<(std::ostream& stream, Point p);
     
     private:
         double x;

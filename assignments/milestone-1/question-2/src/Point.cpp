@@ -15,3 +15,10 @@ double Point::getY()
 {
     return this->y;
 }
+
+std::ostream &operator<<(std::ostream& stream, Point p)
+{
+    stream << p.getX() << " " << p.getY();
+
+    return stream;
+}

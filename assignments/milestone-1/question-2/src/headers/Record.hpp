@@ -2,6 +2,7 @@
 
 #include "Point.hpp"
 #include <math.h>
+#include <iostream>
 
 class Record
 {
@@ -11,6 +12,8 @@ class Record
         double getTime();
         double getAngle();
         double getRadius();
+        friend std::ostream &operator<<(std::ostream& stream, Record r);
+
 
     private:
         double time;

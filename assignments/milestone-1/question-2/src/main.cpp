@@ -28,6 +28,9 @@ int main(int argc, char** argv)
         std::cout << r.getTime() << " " << r.getAngle() << " " << r.getRadius() << std::endl;
     }
 
-    std::cout << (records[0].toCartesian()).getX() << std::endl;
+
+    std::cout << records[0] << std::endl;
+    std::cout << records[0].toCartesian() << std::endl;
+
     exit(0);
 }

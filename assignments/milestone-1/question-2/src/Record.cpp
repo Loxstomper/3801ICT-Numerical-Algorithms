@@ -31,3 +31,10 @@ Point Record::toCartesian()
 
     return Point(x, y);
 }
+
+std::ostream &operator<<(std::ostream& stream, Record r)
+{
+    stream << r.getTime() << " " << r.getAngle() << " " << r.getRadius();
+
+    return stream;
+}
