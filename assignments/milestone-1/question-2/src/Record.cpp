@@ -1,18 +1,33 @@
 #include "./headers/Record.hpp"
 
-Record::Record(int time, double angle, double radius)
+Record::Record(double time, double angle, double radius)
 {
     this->time = time;
     this->angle = angle;
     this->radius = radius;
 }
 
-Point Record::toCartesian(Record r)
+double Record::getTime()
+{
+    return this->time;
+}
+
+double Record::getAngle()
+{
+    return this->angle;
+}
+
+double Record::getRadius()
+{
+    return this->radius;
+}
+
+Point Record::toCartesian()
 {
     double x, y;
 
-    x = r.radius * cos(r.angle);
-    y = r.radius * sin(r.angle);
+    x = this->radius * cos(this->angle);
+    y = this->radius * sin(this->angle);
 
     return Point(x, y);
 }

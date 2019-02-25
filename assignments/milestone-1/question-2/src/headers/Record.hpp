@@ -6,11 +6,14 @@
 class Record
 {
     public:
-        Record(int time, double angle, double radius);
-        Point toCartesian(Record r);
+        Record(double time, double angle, double radius);
+        Point toCartesian();
+        double getTime();
+        double getAngle();
+        double getRadius();
 
     private:
-        int time;
+        double time;
         double angle;
         double radius;
 };
