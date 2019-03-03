@@ -7,3 +7,6 @@
 # compiled python
 *.pyc
 
+# default exceutable
+a.out
+

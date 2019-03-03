@@ -36,13 +36,5 @@ int main(int argc, char** argv)
     std::cout << sum(b, times) << std::endl;
     std::cout << sum(c, times) << std::endl;
 
-
-
-
-
-
-
-
-
     return 0;
 }

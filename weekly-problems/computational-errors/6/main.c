@@ -17,8 +17,7 @@ int main(int argc, char** argv)
 
     calc(a, b, c, x);
 
-    printf("%d %d \n", x[0], x[1]);
-
+    printf("%f %f \n", x[0], x[1]);
 
     return 0;
 }
