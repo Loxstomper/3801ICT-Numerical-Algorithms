@@ -29,8 +29,8 @@ int main(int argc, char** argv)
 {
     int n = 10000;
 
-    printf("%f \n", calc_asc(n));
-    printf("%f \n", calc_desc(n));
+    printf("%.20f \n", calc_asc(n));
+    printf("%.20f \n", calc_desc(n));
 
 
     return 0;
