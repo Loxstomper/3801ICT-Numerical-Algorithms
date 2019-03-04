@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 int factorial(int n)
@@ -51,3 +52,4 @@ int main(int argc, char** argv)
 
     return 0;
 }
+
