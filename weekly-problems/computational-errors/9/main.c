@@ -16,7 +16,7 @@ double calc(double n, double Es)
 {
     double result = 1;
     double error = 999;
-    double previous = 999;
+    double previous = 0;
     int neg = 1;
 
     for (int i = 2; error > Es ; i += 2) 
@@ -32,10 +32,10 @@ double calc(double n, double Es)
             neg = 0;
         }
 
-        error = abs((result - previous) / result) * 100;
+        error = fabs((result - previous) / result) * 100;
         previous = result;
 
-        printf("%f\n", result);
+        printf("%.20f %f\n", result, error);
     }
 
     return result;
@@ -49,7 +49,9 @@ int main(int argc, char** argv)
     double Es = (0.5 * pow(10, (2 - n_sig_figures))) * 100;
     double n = 0.3 * M_PI;
 
-    printf("%f \n", calc(n, Es));
+    calc(n, Es);
+
+    // printf("%f \n", calc(n, Es));
 
     return 0;
 }
