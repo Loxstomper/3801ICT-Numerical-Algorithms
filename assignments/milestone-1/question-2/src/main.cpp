@@ -50,7 +50,7 @@ std::vector<std::tuple<double, double>> calcVelocities(std::vector<Record> r)
 
     std::tuple<double, double> v;
 
-    for (int i = 1; i < r.size() - 2; i ++) 
+    for (int i = 1; i < r.size() -1; i ++) 
     {
         v = firstDerivative(r[i - 1], r[i + 1]);
 
