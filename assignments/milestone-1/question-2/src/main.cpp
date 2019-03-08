@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 
     for (std::tuple<double, double> v: velocities)
     {
-        std::cout << std::get<0>(v) << "\t" << std::get<1>(v) << std::endl;
+        std::cout << std::get<0>(v) << "\t\t" << std::get<1>(v) << std::endl;
     }
 
     std::cout << "\n\tAcceleration" << std::endl;
@@ -116,6 +116,8 @@ int main(int argc, char** argv)
     {
         std::cout << std::get<0>(a) << "\t" << std::get<1>(a) << std::endl;
     }
+
+    std::cout << std::endl;
 
     exit(0);
 }
