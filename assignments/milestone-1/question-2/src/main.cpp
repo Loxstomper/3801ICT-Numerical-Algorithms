@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <tuple>
 
 #include "./headers/Record.hpp"
 #include "./headers/Point.hpp"
@@ -18,35 +19,40 @@ std::vector<Record> buildRecords()
     return records;
 }
 
-double firstDerivative(Record a, Record b)
+// f'(x) = (f(x + h) - f(x - h)) / 2h
+std::tuple<double, double> firstDerivative(Record a, Record b)
 {
-    double h = abs(a.getTime() - b.getTime());
+    // this is over 3 points, the value is actually 2 per point 
+    double h = abs(a.getTime() - b.getTime()) / 2;
 
     Point aPoint = a.toCartesian();
     Point bPoint = b.toCartesian();
 
-    double xPrime = (aPoint.getX() - bPoint.getX()) / h;
-    double yPrime = (aPoint.getY() - bPoint.getY()) / h;
+    double xPrime = (bPoint.getX() - aPoint.getX()) / (2 * h);
+    double yPrime = (bPoint.getY() - aPoint.getY()) / (2 * h);
 
     double velocity = sqrt(pow(xPrime, 2) + pow(yPrime, 2));
 
-    return velocity;
+    return std::make_tuple(xPrime, yPrime);
 }
 
-double secondDerivative(double v1, double v2, double h)
+std::tuple<double, double> secondDerivative(std::tuple<double, double> v1, std::tuple<double, double> v2, double h)
 {
-    return (v1 - v2) / h;
+    double xPrime = (std::get<0>(v2) - std::get<0>(v1)) / (2 * h);
+    double yPrime = (std::get<1>(v2) - std::get<1>(v1)) / (2 * h);
+
+    return std::make_tuple(xPrime, yPrime);
 }
 
-std::vector<double> calcVelocities(std::vector<Record> r)
+std::vector<std::tuple<double, double>> calcVelocities(std::vector<Record> r)
 {
-    std::vector<double> velocities;
+    std::vector<std::tuple<double, double>> velocities;
 
-    double v;
+    std::tuple<double, double> v;
 
-    for (int i = 1; i < r.size(); i ++) 
+    for (int i = 1; i < r.size() - 2; i ++) 
     {
-        v = firstDerivative(r[i - 1], r[i]);
+        v = firstDerivative(r[i - 1], r[i + 1]);
 
         velocities.push_back(v);
     }
@@ -54,15 +60,15 @@ std::vector<double> calcVelocities(std::vector<Record> r)
     return velocities;
 }
 
-std::vector<double> calcAccelerations(std::vector<double> v, double h)
+std::vector<std::tuple<double, double>> calcAccelerations(std::vector<std::tuple<double, double>> v, double h)
 {
-    std::vector<double> accelerations;
+    std::vector<std::tuple<double, double>> accelerations;
 
-    double a;
+    std::tuple<double, double> a;
 
-    for (int i = 1; i < v.size(); i ++) 
+    for (int i = 1; i < v.size() - 1; i ++) 
     {
-        a = secondDerivative(v[i - 1], v[i], h);
+        a = secondDerivative(v[i - 1], v[i + 1], h);
 
         accelerations.push_back(a);
     }
@@ -70,37 +76,45 @@ std::vector<double> calcAccelerations(std::vector<double> v, double h)
     return accelerations;
 }
 
+void displayPoints(std::vector<Record> records)
+{
+    std::cout << "\n\t\tPoints" << std::endl;
+    std::cout << "Time\tR\tθ\tX\tY" << std::endl;
+
+    Point p;
+
+    for (Record r: records)
+    {
+        p = r.toCartesian();
+
+        std::cout << r.getTime() << "\t" << r.getRadius() << "\t" << r.getAngle() << "\t" << p.getX() << "\t" << p.getY() << std::endl;
+    }
+}
+
 int main(int argc, char** argv)
 {
     std::vector<Record> records = buildRecords();
 
-    // for (Record r: records) 
-    // {
-    //     std::cout << r.getTime() << " " << r.getAngle() << " " << r.getRadius() << std::endl;
-    // }
+    displayPoints(records);
 
-    // std::cout << firstDerivative(records[0], records[1]) << std::endl;
+    std::vector<std::tuple<double, double>> velocities = calcVelocities(records);
+    std::vector<std::tuple<double, double>> accelerations = calcAccelerations(velocities, 2.0);
 
-    double v1 = firstDerivative(records[0], records[1]);
-    double v2 = firstDerivative(records[1], records[2]);
 
-    double a1 = secondDerivative(v1, v2, 2.0);
+    std::cout << "\n\tVelocity" << std::endl;
+    std::cout << "X\t\tY" << std::endl;
 
-    std::vector<double> velocities = calcVelocities(records);
-    std::vector<double> accelerations = calcAccelerations(velocities, 2.0);
-
-    std::cout << "V" << std::endl;
-
-    for (double v: velocities)
+    for (std::tuple<double, double> v: velocities)
     {
-        std::cout << v << std::endl;
+        std::cout << std::get<0>(v) << "\t" << std::get<1>(v) << std::endl;
     }
 
-    std::cout << "A" << std::endl;
+    std::cout << "\n\tAcceleration" << std::endl;
+    std::cout << "X\t\tY" << std::endl;
 
-    for (double a: accelerations)
+    for (std::tuple<double, double> a: accelerations)
     {
-        std::cout << a << std::endl;
+        std::cout << std::get<0>(a) << "\t" << std::get<1>(a) << std::endl;
     }
 
     exit(0);
