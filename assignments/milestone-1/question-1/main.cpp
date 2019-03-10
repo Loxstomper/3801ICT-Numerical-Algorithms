@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 #include <cmath>
 
 
@@ -7,14 +8,14 @@
 // f'(x) = -0.4x^3 - 0.45x^2 -x - 0.15
 // f'(0.5) = -0.8125
 
-double f(double x)
+float f(float x)
 {
     return -0.1 * pow(x, 4) - 0.15 * pow(x, 3) - 0.5 * pow(x, 2) - 0.15 * x + 1.2;
 }
 
-double centeredDifference(double x, double h, double(*f)(double))
+float centeredDifference(float x, float h, float(*f)(float))
 {
-    double forward, backward;
+    float forward, backward;
 
     forward = f(x + h);
     backward = f(x - h);
@@ -23,23 +24,25 @@ double centeredDifference(double x, double h, double(*f)(double))
     return (forward - backward) / (2 * h);
 }
 
-double error(double actual, double approx)
+float error(float actual, float approx)
 {
-    return ((actual - approx) / actual) * 100;
+    return fabs((actual - approx) / actual) * 100;
 }
 
 int main(int argc, char** argv)
 {
-    double actual = -0.8125;
-    double x = 0.5;
-    double h = 1;
+    float actual = -0.8125;
+    float x = 0.5;
+    float h = 1;
 
-    double approx;
+    float approx;
 
-    for (int i = 0; i < 1000; i ++) 
+    for (int i = 1; i < 1000; i ++) 
     {
         approx = centeredDifference(x, 1.0 / i, &f);
-        std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
+        // std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
+        // std::cout << i << "\t" << error(actual, approx) << std::endl;
+        printf("%.20f\t%.20f\n", approx, error(actual, approx));
     }
 
     
