@@ -14,5 +14,6 @@ for line in sys.stdin:
 print(x[500:510])
 print(y[500:510])
 
+# plt.yscale("log")
 plt.plot(x, y, 'o-')
 plt.show()

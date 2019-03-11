@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 
     float approx;
 
-    for (int i = 1; i < 1000; i ++) 
+    for (int i = 1; i < 5000; i ++) 
     {
         approx = centeredDifference(x, 1.0 / i, &f);
         // std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
