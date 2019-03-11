@@ -3,7 +3,7 @@
 
 double f(double x)
 {
-    return 0.1 * pow(x, 4) - 0.15 * pow(x, 3) - 0.5 * pow(x, 2) - 0.25 * x + 1.2;
+    return -0.1 * pow(x, 4) - 0.15 * pow(x, 3) - 0.5 * pow(x, 2) - 0.25 * x + 1.2;
 }
 
 double forward(double x, double h) 
