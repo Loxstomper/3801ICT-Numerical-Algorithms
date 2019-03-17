@@ -17,7 +17,7 @@ float centeredDifference(float x, float h, float(*f)(float))
 {
     float forward, backward;
 
-    forward = f(x + h);
+    forward  = f(x + h);
     backward = f(x - h);
 
     // need to have the truncation error too;
@@ -33,16 +33,18 @@ int main(int argc, char** argv)
 {
     float actual = -0.8125;
     float x = 0.5;
-    float h = 1;
+    float h;
 
     float approx;
 
-    for (int i = 1; i < 5000; i ++) 
+    for (int i = 1; i < 1000; i ++) 
     {
-        approx = centeredDifference(x, 1.0 / i, &f);
+        h = 1.0 / i;
+        approx = centeredDifference(x, h, &f);
         // std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
         // std::cout << i << "\t" << error(actual, approx) << std::endl;
-        printf("%.20f\t%.20f\n", approx, error(actual, approx));
+        // printf("%.20f\t%.20f\n", approx, error(actual, approx));
+        printf("%.20f\t%.20f\n", i, error(actual, approx));
     }
 
     
