@@ -21,14 +21,15 @@ plt.style.use('Solarize_Light2')
 fig = plt.figure(1)
 
 ax = fig.add_subplot(111, projection='polar')
-plt.plot(x, y, 'o-', c="#dc322f", s=[5 for _ in range(len(x))])
+# plt.plot(x, y, 'o-', c="#dc322f", s=[5 for _ in range(len(x))])
+plt.plot(x, y, 'o-', c="#dc322f")
 
 ax.set_title("Airplane Position (Polar Coordinates)")
 ax.set_rmin(4500)
 ax.set_rmax(6500)
 ax.set_thetamin(0)
 ax.set_thetamax(180)
-ax.set_yticklabels([])
+# ax.set_yticklabels([])
 
 
 
