@@ -44,7 +44,8 @@ void displayTable(double** table, int n)
     {
         for (int j = 0; j < i + 1; j ++)
         {
-            std::cout << table[i][j] << "\t";
+            // std::cout << table[i][j] << "\t";
+            std::cout << std::setprecision(10) << table[i][j] << "\t";
         }
 
         std::cout << std::endl;
@@ -60,7 +61,7 @@ double integrate(std::vector<std::tuple<int, double>> data)
     int h = 8;
 
     // stopping criterion of 1%
-    double Es = 1.0;
+    double Es = -1.0;
 
     // extrapolation table
     double** table = new double* [n];
@@ -81,6 +82,7 @@ double integrate(std::vector<std::tuple<int, double>> data)
             if ((fabs(table[i][j] - table[i][j - 1]) / table[i][j]) * 100 < Es)
             {
                 // return the most recent value
+                // displayTable(table, 4);
                 return table[i][j];
             }
         }
@@ -103,6 +105,7 @@ int main(int argc, char** argv)
     double integral = integrate(data);
 
     std::cout << std::setprecision(10) << integral << std::endl;
+
 
 
     exit(0);

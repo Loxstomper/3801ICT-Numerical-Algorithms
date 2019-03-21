@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdio>
+#include <iomanip>
 #include <cmath>
+#include <limits>
 
 
 // use float16
@@ -37,15 +39,26 @@ int main(int argc, char** argv)
 
     float approx;
 
-    for (int i = 1; i < 1000; i ++) 
-    {
-        h = 1.0 / i;
-        approx = centeredDifference(x, h, &f);
-        // std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
-        // std::cout << i << "\t" << error(actual, approx) << std::endl;
-        // printf("%.20f\t%.20f\n", approx, error(actual, approx));
-        printf("%.20f\t%.20f\n", i, error(actual, approx));
-    }
+    // h = 10.0;
+    h = 0.0055428994652341424;
+
+    // for (int i = 1; i < 100; i ++) 
+    // {
+    //     // h = 1.0 / i;
+    //     approx = centeredDifference(x, h, &f);
+    //     // std::cout << approx << "\t" << error(actual, approx) << "%%" << std::endl;
+    //     // std::cout << i << "\t" << error(actual, approx) << std::endl;
+    //     // printf("%.20f\t%.20f\n", approx, error(actual, approx));
+    //     printf("%.20f\t%.20f\n", h, error(actual, approx));
+    //     h /= 2;
+    //     // h *= (3/4);
+    // }
+
+    std::cout << std::numeric_limits<float>::epsilon() << std::endl;
+
+    std::cout << centeredDifference(x, h, &f);
+
+    // std::cout << std::fixed << std::setprecision(20) << std:: 
 
     
     exit(0);

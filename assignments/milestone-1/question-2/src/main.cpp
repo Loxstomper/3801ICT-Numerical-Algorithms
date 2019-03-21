@@ -1,3 +1,6 @@
+// check if the correct differentiation method is being used for the acceleraiton
+// no taylor series is being used currently
+
 #include <iostream>
 #include <vector>
 #include <tuple>
@@ -44,6 +47,22 @@ std::tuple<double, double> secondDerivative(std::tuple<double, double> v1, std::
     return std::make_tuple(xPrime, yPrime);
 }
 
+// numerical differentiation powerpoint last slide
+std::tuple<double, double> secondDerivativeV2(std::vector<Record> r, int i)
+{
+    // double h = abs(r[i - 1].getTime() - r[i].getTime()) / 2;
+    double h = 2.0;
+
+    Point left   = r[i - 1].toCartesian();
+    Point middle = r[  i  ].toCartesian();
+    Point right  = r[i + 1].toCartesian();
+
+    double xPrime = (right.getX() - 2 * middle.getX() + left.getX()) / (h * h);
+    double yPrime = (right.getY() - 2 * middle.getY() + left.getY()) / (h * h);
+
+    return std::make_tuple(xPrime, yPrime);
+}
+
 std::vector<std::tuple<double, double>> calcVelocities(std::vector<Record> r)
 {
     std::vector<std::tuple<double, double>> velocities;
@@ -76,6 +95,22 @@ std::vector<std::tuple<double, double>> calcAccelerations(std::vector<std::tuple
     return accelerations;
 }
 
+std::vector<std::tuple<double, double>> calcAccelerationsV2(std::vector<Record> r)
+{
+    std::vector<std::tuple<double, double>> accelerations;
+
+    std::tuple<double, double> a;
+
+    for (int i = 1; i < r.size() - 1; i ++) 
+    {
+        a = secondDerivativeV2(r, i);
+
+        accelerations.push_back(a);
+    }
+
+    return accelerations;
+}
+
 void displayPoints(std::vector<Record> records)
 {
     std::cout << "\n\t\tPoints" << std::endl;
@@ -99,6 +134,7 @@ int main(int argc, char** argv)
 
     std::vector<std::tuple<double, double>> velocities = calcVelocities(records);
     std::vector<std::tuple<double, double>> accelerations = calcAccelerations(velocities, 2.0);
+    std::vector<std::tuple<double, double>> accelerationsV2 = calcAccelerationsV2(records);
 
 
     std::cout << "\n\tVelocity" << std::endl;
@@ -113,6 +149,16 @@ int main(int argc, char** argv)
     std::cout << "X\t\tY" << std::endl;
 
     for (std::tuple<double, double> a: accelerations)
+    {
+        std::cout << std::get<0>(a) << "\t" << std::get<1>(a) << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    std::cout << "\n\tAccelerationV2" << std::endl;
+    std::cout << "X\t\tY" << std::endl;
+
+    for (std::tuple<double, double> a: accelerationsV2)
     {
         std::cout << std::get<0>(a) << "\t" << std::get<1>(a) << std::endl;
     }
