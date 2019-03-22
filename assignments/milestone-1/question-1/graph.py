@@ -28,13 +28,14 @@ for line in sys.stdin:
 # find min error and corresponding h
 
 
-plt.yscale('log')
-plt.xscale('log')
+# plt.yscale('log')
+# plt.xscale('log')
 # plt.plot(x, y, 'o-', c='r')
 # plt.plot(truncX, truncY, 'o-', c='b')
 plt.plot(x, y, 'o--', c='r')
 # plt.plot(truncX, truncY, 'o', c='b')
 plt.xlabel("H - Step Size")
 plt.ylabel("True Error")
+plt.title("True Error vs H (step size)")
 
 plt.show()
