@@ -28,8 +28,8 @@ float centeredDifference(float x, float h, float(*f)(float))
 
 float error(float actual, float approx)
 {
-    // return fabs((actual - approx) / actual) * 100;
-    return fabs((double)(actual - approx) / actual) * 100;
+    return fabs((actual - approx) / actual) * 100;
+    // return fabs((double)(actual - approx) / actual) * 100;
 }
 
 float truncationError(float h) 
@@ -58,11 +58,11 @@ int main(int argc, char** argv)
     float bestH;
     float bestError = 100;
     float errorV;
-    h = 0.0055428994652341424;
+    // h = 0.0055428994652341424;
 
 
-    printf("%.20f\t%.20f\n", centeredDifference(x, h, &f), error(centeredDifference(x, h, &f), actual));
-    return 0;
+    // printf("%.20f\t%.20f\n", centeredDifference(x, h, &f), error(centeredDifference(x, h, &f), actual));
+    // return 0;
 
     for (int i = 1; i < 2000; i ++) 
     {
