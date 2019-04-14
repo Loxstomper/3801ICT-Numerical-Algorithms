@@ -61,7 +61,7 @@ double integrate(std::vector<std::tuple<int, double>> data)
     int h = 8;
 
     // stopping criterion of 1%
-    double Es = -1.0;
+    double Es = 1.0;
 
     // extrapolation table
     double** table = new double* [n];

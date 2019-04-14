@@ -5,9 +5,13 @@ velocityTimes = [202, 204, 206, 208]
 velocityX = [126.569, 118.181, 118.481, 104.907]
 velocityY = [22.965, 26.526, 40.6738, 44.7124]
 
-accelerationTimes = [204, 206]
-accelerationX = [-2.02209, -3.31845]
-accelerationY = [4.4272, 4.54661]
+# accelerationTimes = [204, 206]
+# accelerationX = [-2.02209, -3.31845]
+# accelerationY = [4.4272, 4.54661]
+
+accelerationTimes = [202, 204, 206, 208]
+accelerationX = [-18.906, 10.5184, -10.2191, -3.354]
+accelerationY = [-2.48765, 6.04864, 8.09919, -4.06058]
 
 
 

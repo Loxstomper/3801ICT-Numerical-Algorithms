@@ -28,8 +28,8 @@ float centeredDifference(float x, float h, float(*f)(float))
 
 float error(float actual, float approx)
 {
-    // return fabs((actual - approx) / actual) * 100;
-    return fabs((double)(actual - approx) / actual) * 100;
+    return fabs((actual - approx) / actual) * 100;
+    // return fabs((double)(actual - approx) / actual) * 100;
 }
 
 float truncationError(float h) 
