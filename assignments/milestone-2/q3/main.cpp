@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cmath>
 #include <iomanip>
+#include <cmath>
 
 #define GRAVITY 9.81
 #define V0      20
