@@ -5,7 +5,7 @@
 #define GRAVITY 9.81
 #define V0      20
 #define X       35
-#define Y0      2
+#define Y0      2 
 #define TARGET  1.0
 #define DEBUG   0 
 
