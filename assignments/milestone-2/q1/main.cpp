@@ -14,7 +14,7 @@
 // y(0)  = 0
 double a(double x) 
 {
-	return pow(x, 2) * (4.0 * pow(10.0, -7.0) * pow(x, 2) - 0.000048 * x + 0.00216);
+	return (x * x) * (4.0 * pow(10.0, -7.0) * (x * x) - 0.000048 * x + 0.00216);
 }
 
 // True y' found by deriving true y
@@ -104,15 +104,16 @@ double error(double approx, double target)
 int main(int argc, char** argv) 
 {
 	double xMax = 0.5;
-	double h    = 0.25;
+	double h    = 0.125;
+	// double h    = 1;
 	
 	// euler, midpoint, huen, rk4
 	double Y[] = {0.0, 0.0, 0.0, 0.0};
 	double Z[] = {0.0, 0.0, 0.0, 0.0};
 
 	double ax, a1x;
-	
-	for (double i = 0; i < xMax; i += h)
+
+	for (double i = 0; i < 30; i += h)
 	{
 		euler   (i, Y[0], Z[0], h);
 		midPoint(i, Y[1], Z[1], h);
@@ -124,13 +125,26 @@ int main(int argc, char** argv)
 		a1x = a1(i + h);
 		
 		std::cout << std::setprecision(10)
-		<< "\n\nx = " << i + h << "\n"
-		<< "Euler      : y(x) = " << Y[0] << "\ty'(x) = " << Z[0] << "\terror(y) = " << error(Y[0], ax) << "\terror(y') = " << error(Z[0], a1x) <<"\n"
-		<< "Midpoin    : y(x) = " << Y[1] << "\ty'(x) = " << Z[1] << "\terror(y) = " << error(Y[1], ax) << "\terror(y') = " << error(Z[1], a1x) <<"\n"
-		<< "Huen       : y(x) = " << Y[2] << "\ty'(x) = " << Z[2] << "\terror(y) = " << error(Y[2], ax) << "\terror(y') = " << error(Z[2], a1x) <<"\n"
-		<< "Rk4        : y(x) = " << Y[3] << "\ty'(x) = " << Z[3] << "\terror(y) = " << error(Y[3], ax) << "\terror(y') = " << error(Z[3], a1x) <<"\n"
-		<< "Analytical : y(x) = " << ax   << "\ty'(x) = " << a1x  << "\terror(y) = 0\terror(y') = 0"  << std::endl;
+		// << "\n\nx = " << i + h << "\n"
+		// << "Euler      : y(x) = " << Y[0] << "\ty'(x) = " << Z[0] << "\terror(y) = " << error(Y[0], ax) << "\terror(y') = " << error(Z[0], a1x) <<"\n"
+		// << "Midpoin    : y(x) = " << Y[1] << "\ty'(x) = " << Z[1] << "\terror(y) = " << error(Y[1], ax) << "\terror(y') = " << error(Z[1], a1x) <<"\n"
+		// << "Huen       : y(x) = " << Y[2] << "\ty'(x) = " << Z[2] << "\terror(y) = " << error(Y[2], ax) << "\terror(y') = " << error(Z[2], a1x) <<"\n"
+		// << "Rk4        : y(x) = " << Y[3] << "\ty'(x) = " << Z[3] << "\terror(y) = " << error(Y[3], ax) << "\terror(y') = " << error(Z[3], a1x) <<"\n"
+		// << "Analytical : y(x) = " << ax   << "\ty'(x) = " << a1x  << "\terror(y) = 0\terror(y') = 0"  << std::endl;
+		<< i + h << " " << Y[0] << " " << Y[1] << " " << Y[2] << " " << Y[3] << " " << ax << std::endl;
+		// << i << " " << Y[0] << " " << Y[1] << " " << Y[2] << " " << Y[3] << std::endl;
+		// << i + h << " " << error(Y[0], ax) << " " << error(Y[1], ax) << " " << error(Y[2], ax) << " " << error(Y[3], ax) << " " << ax << std::endl;
 	}
+
+	// for (double i = 0; i < 30; i += h)
+	// {
+	// 	rk4     (i, Y[0], Z[0], h, 0.05);
+	// 	rk4     (i, Y[1], Z[1], h, 0.10);
+	// 	rk4     (i, Y[2], Z[2], h, 0.15);
+	// 	rk4     (i, Y[3], Z[3], h, 0.20);
+	// 	std::cout << std::setprecision(10)
+	// 	<< i + h << " " << Y[0] << " " << Y[1] << " " << Y[2] << " " << Y[3] << " " << std::endl;
+	// }
 	
 	return 0;
 }
