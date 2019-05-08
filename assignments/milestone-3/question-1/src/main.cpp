@@ -9,6 +9,8 @@
 #define TB 5300000
 #define TS 1125000
 #define RATE_OF_FUEL_LOSS 10236.22047244 // dervived by dividing 1.3 * 10^6 by 127 seconds
+#define SIG_DIGITS 5
+#define SECANT_ACCURACY 0.5 * pow(10, 2 - SIG_DIGITS)
 
 double f(double x, double wb)
 {
@@ -30,49 +32,72 @@ std::vector<Point> generatePoints(double start, double wb, double end, double n)
     return points;
 }
 
-std::vector<Point> generatePoints(double start, double wb, double stepSize, double n)
-{
-    std::vector<Point> points;
+// std::vector<Point> generatePoints(double start, double wb, double stepSize, double n)
+// {
+//     std::vector<Point> points;
 
-    // probably use while loop to stop all the multiplications
-    // i dont like this because of the innacuracy
-    for (double i = 0; i < n; i ++)
-    {
-        points.push_back(Point(start + (stepSize * i), f(i, wb)));
+//     // probably use while loop to stop all the multiplications
+//     // i dont like this because of the innacuracy
+//     for (double i = 0; i < n; i ++)
+//     {
+//         points.push_back(Point(start + (stepSize * i), f(i, wb)));
+//     }
+
+//     return points;
+// }
+
+double secant(double x1, double x2, double wb) 
+{ 
+    double n = 0, xm, x0, c; 
+    if (f(x1, wb) * f(x2, wb) < 0) { 
+        do { 
+            // calculate the intermediate value 
+            x0 = (x1 * f(x2, wb) - x2 * f(x1, wb)) / (f(x2, wb) - f(x1, wb)); 
+  
+            // check if x0 is root of equation or not 
+            c = f(x1, wb) * f(x0, wb); 
+  
+            // update the value of interval 
+            x1 = x2; 
+            x2 = x0; 
+  
+            // if x0 is the root of equation then break the loop 
+            if (c == 0) 
+                break; 
+
+            xm = (x1 * f(x2, wb) - x2 * f(x1, wb)) / (f(x2, wb) - f(x1, wb)); 
+        } while (fabs(xm - x0) >= 0.0001); 
+  
+        return x0;
+    } else {
+        throw "No root found in interval";
     }
-
-    return points;
-}
-
-double secant(double a_x, double b_x, double wb)
-{
-    double mid_x, mid_y, a_y, b_y;
-    double accuracy = 0.5 * pow(10, 2 - 5);
-
-    a_y = f(a_y, wb);
-    b_y = f(b_y, wb);
-
-    if (a_y * b_y < 0)
-    {
-        do {
-            mid_x = (a_x * b_y - b_x * a_y) / (b_y - a_y); 
-        } while (fabs())
-    }
-}
+} 
+  
 
 int main(int argc, char** argv)
 {
-    Point a = Point(1, 2);
-    Point b = Point();
+    // full weight of tank + fuel
+    double wb = 1.663 * pow(10, 6);
+    double y;
 
-    std::cout << a.getX() << " " << a.getY() << std::endl;
-    std::cout << b.getX() << " " << b.getY() << std::endl;
+    Point points[128];
 
-    // do claculation before liftoff
-
-    for(int i = 0; i < 127; i++)
+    for(int i = 0; i < 128; i++)
     {
-        // subtract weight do secant
+        try {
+            points[i].setX(i);
+            points[i].setY(secant(0, 10, wb));
+        } catch (const char* msg) {
+            std::cerr << msg << std::endl;
+        }
+
+        wb -= RATE_OF_FUEL_LOSS;
+    }
+
+    for (int i = 0; i < 128; i ++) 
+    {
+        std::cout << points[i] << std::endl;
     }
     
 

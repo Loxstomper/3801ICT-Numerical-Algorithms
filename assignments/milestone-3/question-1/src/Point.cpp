@@ -31,3 +31,11 @@ void Point::setY(double y)
 {
     this->y = y;
 }
+
+std::ostream &operator<<(std::ostream& stream, Point p)
+{
+    stream << p.getX() << " " << p.getY();
+
+    return stream;
+}
+
