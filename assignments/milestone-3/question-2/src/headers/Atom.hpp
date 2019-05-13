@@ -8,9 +8,9 @@ class Atom
 {
     public:
         Atom();
-        Atom(double x, double y);
+        Atom(double x, double y, double z);
 
-        void updatePosition(double x, double y);
+        void updatePosition(double x, double y, double z);
         Point getPoint();
 
         double getEnergy(Atom a);

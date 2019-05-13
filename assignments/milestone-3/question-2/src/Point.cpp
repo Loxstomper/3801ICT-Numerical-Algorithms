@@ -6,10 +6,11 @@ Point::Point()
     this->y = 0;
 }
 
-Point::Point(double x, double y)
+Point::Point(double x, double y, double z)
 {
     this->x = x;
     this->y = y;
+    this->z = y;
 }
 
 double Point::getX()
@@ -22,6 +23,11 @@ double Point::getY()
     return this->y;
 }
 
+double Point::getZ()
+{
+    return this->z;
+}
+
 void Point::setX(double x)
 {
     this->x = x;
@@ -30,6 +36,11 @@ void Point::setX(double x)
 void Point::setY(double y)
 {
     this->y = y;
+}
+
+void Point::setZ(double z)
+{
+    this->y = z;
 }
 
 double Point::getDistance(Point p)

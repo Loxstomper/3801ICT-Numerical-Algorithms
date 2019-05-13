@@ -16,7 +16,7 @@ Cluster::~Cluster()
 void Cluster::randomize(double min, double max)
 {
     double range = max - min;
-    double x, y;
+    double x, y, z;
 
     srand(time(NULL));
 
@@ -24,8 +24,9 @@ void Cluster::randomize(double min, double max)
     {
         x = min + (rand() / (RAND_MAX / range));
         y = min + (rand() / (RAND_MAX / range));
+        z = min + (rand() / (RAND_MAX / range));
 
-        this->atoms[i].updatePosition(x, y);
+        this->atoms[i].updatePosition(x, y, z);
     }
 }
 
@@ -33,13 +34,12 @@ void Cluster::randomize(double min, double max)
 double Cluster::getEnergy()
 {
     double energy = 0.0f;
-    double x;
 
     for (int i = 0; i < this->size; i ++)
     {
-        for (int j = i; j < this->size; j ++)
+        for (int j = i + 1; j < this->size; j ++)
         {
-            x = this->atoms[i].getEnergy(this->atoms[j]);
+            energy += this->atoms[i].getEnergy(this->atoms[j]);
         }
     }
 
@@ -84,7 +84,6 @@ void Cluster::printPoints()
 std::ostream &operator<<(std::ostream& stream, Cluster c)
 {
     stream << "Size: " << c.getSize() << " Energy: " << c.getEnergy();
-    // int size = c.getSize();
 
     // stream << "i point energy_gradient\n";
 

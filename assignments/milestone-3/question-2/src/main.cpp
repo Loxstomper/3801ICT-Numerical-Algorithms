@@ -8,9 +8,12 @@
 int main(int argc, char** argv)
 {
     Cluster cluster = Cluster(4);
-    cluster.randomize(10, 50);
 
-    std::cout << cluster << std::endl;
+    for (int i = 0; i < 100; i ++) 
+    {
+        cluster.randomize(0, 1);
+        std::cout << cluster << std::endl;
+    }
 
     // std::cout << "\nprintPoints" << std::endl;
     // cluster.printPoints();
