@@ -45,7 +45,7 @@ void Point::setZ(double z)
 
 double Point::getDistance(Point p)
 {
-    return sqrt(pow(this->x - p.getX(), 2) + pow(this->y - p.getY(), 2));
+    return sqrt(pow(this->x - p.getX(), 2) + pow(this->y - p.getY(), 2) + pow(this->z - p.getZ(), 2));
 }
 
 std::ostream &operator<<(std::ostream& stream, Point p)
