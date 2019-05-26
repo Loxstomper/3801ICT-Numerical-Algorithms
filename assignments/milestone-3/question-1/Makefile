@@ -7,6 +7,9 @@ question-1: ./build/main.o
 ./build/Point.o: ./src/Point.cpp
 	g++ -c -o ./build/Point.o ./src/Point.cpp
 
+graphs: ./question-1
+	./question-1 | python3 ./graphs.py
+
 clean:
 	rm -f question-1
 	rm -f ./build/*

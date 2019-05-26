@@ -18,6 +18,13 @@ double f(double x, double wb)
     return (((TB - wb) * 4) + (TS * sin(x) * 38)) - ((TS * cos(x)) - WS) * 24;
 }
 
+double fDrag(double x, double wb)
+{
+    x *= M_PI / 180;
+    return (((TB - wb) * 4) + (TS * sin(x) * 38)) - ((TS * cos(x)) - WS) * 24;
+}
+
+
 std::vector<Point> generatePoints(double start, double wb, double end, double n)
 {
     std::vector<Point> points;
@@ -31,20 +38,6 @@ std::vector<Point> generatePoints(double start, double wb, double end, double n)
 
     return points;
 }
-
-// std::vector<Point> generatePoints(double start, double wb, double stepSize, double n)
-// {
-//     std::vector<Point> points;
-
-//     // probably use while loop to stop all the multiplications
-//     // i dont like this because of the innacuracy
-//     for (double i = 0; i < n; i ++)
-//     {
-//         points.push_back(Point(start + (stepSize * i), f(i, wb)));
-//     }
-
-//     return points;
-// }
 
 double secant(double x1, double x2, double wb) 
 { 
@@ -73,6 +66,45 @@ double secant(double x1, double x2, double wb)
         throw "No root found in interval";
     }
 } 
+
+double acceleration(double theta, double wb)
+{
+    // F = ma
+    // F = Net Thrust = TB + TR 
+    // m = TB + TS
+
+    return (TB + TS) / (WS + wb);
+}
+
+void velocity(double* v, double* a, int n)
+{
+    // integrate tho?
+
+    // using kinematics formula
+    // v = u + at
+    // t = 1
+
+    v[0] = 0;
+
+    for (int i = 1; i < n; i ++)
+    {
+        v[i] = v[i - 1] + a[i];
+    }
+}
+
+void displacement(double* s, double* v, double* a, int n)
+{
+    // kinematics formula
+    // s = v[i - 1] * t + 0.5 (at)^2
+    // t = 1
+
+    s[0] = 0;
+
+    for (int i = 1; i < n; i ++)
+    {
+        s[i] = s[i - 1] + v[i - 1] + 0.5 * (a[i] * a[i]);
+    }
+}
   
 
 int main(int argc, char** argv)
@@ -82,6 +114,9 @@ int main(int argc, char** argv)
     double y;
 
     Point points[128];
+    double accelerations[128];
+    double velocities[128];
+    double displacements[128];
 
     for(int i = 0; i < 128; i++)
     {
@@ -92,13 +127,33 @@ int main(int argc, char** argv)
             std::cerr << msg << std::endl;
         }
 
+        // std::cout << points[i] << " Acceleration: " << acceleration(points[i].getY(), wb) << std::endl;
+        // std::cout << points[i] << " " << acceleration(points[i].getY(), wb) << std::endl;
+
+        accelerations[i] = acceleration(points[i].getY(), wb);
+
         wb -= RATE_OF_FUEL_LOSS;
     }
 
+    velocity(velocities, accelerations, 128);
+    displacement(displacements, velocities, accelerations, 128);
+
     for (int i = 0; i < 128; i ++) 
     {
-        std::cout << points[i] << std::endl;
+        std::cout << points[i] << "\t" << accelerations[i] << "\t" << velocities[i] << "\t" << displacements[i] << std::endl;
     }
+
+    // DO LAGRANGE
+
+    // GET ACCELERATION
+
+    // LAGRANGE ON ACCELERATION
+
+    // Integrate the acceleration to get velocity
+
+    // Use this velocity to incorporate drag
+
+    // Find acceleration 
     
 
     return 0;

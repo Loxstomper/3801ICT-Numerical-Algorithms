@@ -10,7 +10,7 @@ Cluster::Cluster(int size)
 
 Cluster::~Cluster()
 {
-    delete this->atoms;
+    delete[] this->atoms;
 }
 
 void Cluster::randomize(double min, double max)

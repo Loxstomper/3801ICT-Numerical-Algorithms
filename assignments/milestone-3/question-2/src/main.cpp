@@ -7,13 +7,16 @@
 
 int main(int argc, char** argv)
 {
-    Cluster cluster = Cluster(4);
+    Cluster cluster = Cluster(100);
 
-    for (int i = 0; i < 100; i ++) 
-    {
-        cluster.randomize(0, 1);
-        std::cout << cluster << std::endl;
-    }
+    // for (int i = 0; i < 100; i ++) 
+    // {
+        // cluster.randomize(0, 100);
+        // std::cout << cluster << std::endl;
+    // }
+
+    cluster.randomize(0, 100);
+    cluster.printPoints();
 
     // std::cout << "\nprintPoints" << std::endl;
     // cluster.printPoints();

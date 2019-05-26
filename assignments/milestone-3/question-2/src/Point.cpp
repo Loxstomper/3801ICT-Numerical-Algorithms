@@ -40,7 +40,7 @@ void Point::setY(double y)
 
 void Point::setZ(double z)
 {
-    this->y = z;
+    this->z = z;
 }
 
 double Point::getDistance(Point p)
@@ -50,7 +50,7 @@ double Point::getDistance(Point p)
 
 std::ostream &operator<<(std::ostream& stream, Point p)
 {
-    stream << p.getX() << " " << p.getY();
+    stream << p.getX() << " " << p.getY() << " " << p.getZ();
 
     return stream;
 }
